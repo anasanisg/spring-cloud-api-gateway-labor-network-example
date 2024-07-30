@@ -1,0 +1,73 @@
+version: '3.8'
+services:
+
+  gateway:
+    container_name: gateway
+    image: gateway
+    restart: always
+    environment:
+      - DISCOVERY_SERVICE_URL=http://discovery:8761/eureka
+      - REDIS_SERVER_URL=redis
+      - REDIS_SERVER_PORT=6379
+    ports:
+      - 8080:8080
+    depends_on:
+      - walltools-service
+      - redis
+
+  redis:
+    container_name: redis
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+  walltools-service:
+    container_name: walltools
+    image: walltools
+    restart: always
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=test_db
+      - DB_USER=test
+      - DB_PASSWORD=test
+      - DISCOVERY_SERVICE_URL=http://discovery:8761/eureka
+    depends_on:
+      - db
+      - discovery-service
+
+  db:
+    container_name: postgres_container
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: test_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: test@test.com
+      PGADMIN_DEFAULT_PASSWORD: test
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+
+  discovery-service:
+    container_name: discovery
+    image: discovery
+    restart: always
+    ports:
+      - 8761:8761
+
+volumes:
+  pg-data:

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+
+    <!-- Create Revision table for (Movement&Tools) -->
+    <changeSet id="create revision table" author="anas">
+        <createTable tableName="revision">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_revision" />
+            </column>
+            <column name="created" type="timestamp">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <!-- Generate Sequence for revision table-->
+        <createSequence sequenceName="revision_sequence" startValue="1" incrementBy="1" />
+
+    </changeSet>
+
+
+    <!-- Create movement audit table -->
+    <changeSet id="create movement_aud table " author="anas">
+        <createTable tableName="movement_aud">
+            <column name="id" type="bigint" />
+            <column
+                name="rev"
+                type="bigint">
+                <constraints
+                    primaryKey="true"
+                    foreignKeyName="fk_movement_aud_revision"
+                    references="revision(id)" />
+            </column>
+
+            <column name="revtype" type="tinyint" />
+
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="user_name" type="VARCHAR(255)">
+                <constraints />
+            </column>
+
+            <column name="movement_status" type="VARCHAR(255)">
+                <constraints />
+            </column>
+
+            <column name="pickup_date" type="timestamp">
+                <constraints />
+            </column>
+
+
+            <column name="return_date" type="timestamp"> </column>
+
+            <column name="modified_at" type="timestamp">
+                <constraints />
+            </column>
+
+        </createTable>
+    </changeSet>
+
+    <!-- Create Tool Audit Table -->
+    <changeSet id="create tool_aud table " author="anas">
+        <createTable tableName="tool_aud">
+            <column name="id" type="bigint" />
+            <column
+                name="rev"
+                type="bigint">
+                <constraints
+                    primaryKey="true"
+                    foreignKeyName="fk_tool_aud_revision"
+                    references="revision(id)" />
+            </column>
+
+            <column name="revtype" type="tinyint" />
+
+            <column name="tool_name" type="VARCHAR(255)">
+                <constraints />
+            </column>
+
+            <column name="tool_status" type="VARCHAR(255)">
+                <constraints />
+            </column>
+
+            <column name="created_at" type="timestamp">
+                <constraints />
+            </column>
+
+            <column name="modified_at" type="timestamp">
+                <constraints />
+            </column>
+
+        </createTable>
+    </changeSet>
+
+
+</databaseChangeLog>

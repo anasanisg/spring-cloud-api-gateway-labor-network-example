@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- Create Tool Details Table because Tool Tabel depends on it (One To One Relation) -->
+
+    <changeSet id="Create Tool Details Table" author="anas">
+        <createTable tableName="tool_details">
+
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+
+            <column name="description" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="height" type="DOUBLE">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="width" type="DOUBLE">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="weight" type="DOUBLE">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="img" type="VARCHAR(255)">
+                <constraints nullable="true" />
+            </column>
+
+        </createTable>
+
+        <!-- Generate Sequence for this table -->
+        <createSequence sequenceName="tool_details_sequence" startValue="1" incrementBy="1" />
+    </changeSet>
+
+
+    <!-- Create Tool Table -->
+    <changeSet id="1" author="anas">
+        <createTable tableName="tool">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+
+            <column name="tool_name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true" />
+            </column>
+
+            <column name="fk_tool_details_id" type="BIGINT">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="tool_status" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="created_at" type="timestamp">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="modified_at" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+
+        <!-- Define Tables Relation-->
+        <addForeignKeyConstraint
+            baseTableName="tool"
+            baseColumnNames="fk_tool_details_id"
+            constraintName="fk_tool_details_id_constraint"
+            referencedTableName="tool_details"
+            referencedColumnNames="id"
+            onDelete="CASCADE"
+            onUpdate="CASCADE"
+        />
+
+        <!-- Generate Sequence for tool table-->
+        <createSequence sequenceName="tool_sequence" startValue="1" incrementBy="1" />
+
+    </changeSet>
+
+</databaseChangeLog>

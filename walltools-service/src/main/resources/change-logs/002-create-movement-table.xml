@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+
+    <!-- Create Movement Table-->
+
+    <changeSet id="Create Movement Table" author="anas">
+        <createTable tableName="movement">
+
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="user_name" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="movement_status" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="pickup_date" type="timestamp">
+                <constraints nullable="false" />
+            </column>
+
+
+            <column name="return_date" type="timestamp"> </column>
+
+            <column name="modified_at" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+
+        </createTable>
+
+        <!-- Generate Sequence for movement table-->
+        <createSequence sequenceName="movement_sequence" startValue="1" incrementBy="1" />
+
+    </changeSet>
+
+    <changeSet id="Create Movement_Tool Table" author="anas">
+        <!-- Create Movement tool table which used to link the movement with tools-->
+        <createTable tableName="movement_tool">
+            <column name="movement_id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="tool_id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+            baseTableName="movement_tool"
+            baseColumnNames="movement_id"
+            constraintName="fk_movement_tool_movement"
+            referencedTableName="movement"
+            referencedColumnNames="id"
+            onDelete="CASCADE"
+        />
+        <addForeignKeyConstraint
+            baseTableName="movement_tool"
+            baseColumnNames="tool_id"
+            constraintName="fk_movement_tool_tool"
+            referencedTableName="tool"
+            referencedColumnNames="id"
+        />
+
+    </changeSet>
+
+
+</databaseChangeLog>

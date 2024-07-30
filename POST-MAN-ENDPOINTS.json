@@ -1,0 +1,375 @@
+{
+	"info": {
+		"_postman_id": "b6d253d1-4746-4ee7-85d4-0b7d8199f53c",
+		"name": "ToolTracker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30602922"
+	},
+	"item": [
+		{
+			"name": "tool",
+			"item": [
+				{
+					"name": "create tool",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"toolName\":\"Tool1\",\n    \"toolStatus\":3,\n    \"toolDetails\":{\n        \"description\":\"Test Description\",\n        \"height\":10,\n        \"width\":20,\n        \"weight\":30,\n        \"img\":\"EMPTY\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/{{api_version}}/tool",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"{{api_version}}",
+								"tool"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update tool details",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ /* Admin can update all or multiple */\n        \"description\":\"Some Test Description\",\n        \"height\":10,\n        \"width\":20,\n        \"weight\":30,\n        \"img\":\"TestImage\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/{{api_version}}/tool/4",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"{{api_version}}",
+								"tool",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update tool status",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n    \"status\": 0 /* Or Status Name like GOOD, NOT_SET , TO_BE_REPLACED , BROKEN */\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/{{api_version}}/tool/5/status",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"{{api_version}}",
+								"tool",
+								"5",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete Tool",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/{{api_version}}/tool/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"{{api_version}}",
+								"tool",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get tool by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/{{api_version}}/tool/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"{{api_version}}",
+								"tool",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all tools",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/{{api_version}}/tool/all",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"{{api_version}}",
+								"tool",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all tools by status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/{{api_version}}/tool/by?status=BROKEN",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"{{api_version}}",
+								"tool",
+								"by"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "BROKEN"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "movement",
+			"item": [
+				{
+					"name": "register Movement",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"userId\":1,\n\"userName\":\"anas\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/{{api_version}}/movement/scan",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"{{api_version}}",
+								"movement",
+								"scan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "take tools",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"takenTools\":[\n{\"id\":1} /* One or multiple tools */\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/{{api_version}}/movement",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"{{api_version}}",
+								"movement"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Return tool",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/{{api_version}}/movement/tool/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"{{api_version}}",
+								"movement",
+								"tool",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Movements By",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/{{api_version}}/movement/by?status=IN_USE&fromDate=2024-02-06&toDate=2024-02-08",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"{{api_version}}",
+								"movement",
+								"by"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "IN_USE"
+								},
+								{
+									"key": "fromDate",
+									"value": "2024-02-06"
+								},
+								{
+									"key": "toDate",
+									"value": "2024-02-08"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get movement by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/{{api_version}}/movement/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"{{api_version}}",
+								"movement",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all in_use movements for more than X hourz",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "TODO",
+							"host": [
+								"TODO"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "api_version",
+			"value": "v1",
+			"type": "string"
+		}
+	]
+}

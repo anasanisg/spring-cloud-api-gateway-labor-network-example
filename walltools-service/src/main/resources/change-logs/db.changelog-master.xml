@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- Include ChangeSet: to create Tool Table && Tool Details Table-->
+    <include file="classpath:change-logs/001-create-tool-tables.xml" />
+
+    <!-- Include ChangeSet: to create movement Table-->
+    <include file="classpath:change-logs/002-create-movement-table.xml" />
+
+    <!-- Include ChangeSet: to create tables related to auditing-->
+    <include file="classpath:change-logs/003-create-aud-tables.xml" />
+
+    <!-- Include ChangeSet: to add version column for optimestic-Locking -->
+    <include file="classpath:change-logs/004-add-version-col.xml" />
+
+
+</databaseChangeLog>

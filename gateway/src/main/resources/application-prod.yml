@@ -1,0 +1,44 @@
+
+
+# Routing Configurations
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: walltool-service-tool-v1
+          uri: lb://walltool-service
+          predicates:
+            - Path=/v1/tool/**
+
+# This is the most sensitive endpoint so there are rate limiter functionality applied here
+# which allow 1 request per second to preven concurrent request
+        - id: movement-scan
+          uri: lb://walltool-service
+          predicates:
+            - Path=/v1/movement/scan
+            - Method=POST
+          filters: 
+            - name: RequestRateLimiter
+              args:
+                key-resolver: "#{@userKeyResolver}"
+                redis-rate-limiter: # Configuration for rate limiting(1RPS)
+                  replenishRate: 1
+                  burstCapacity: 1
+
+        - id: movement-take-tool
+          uri: lb://walltool-service
+          predicates:
+            - Path=/v1/movement
+            - Method=POST
+
+        - id: movement-reuturn-tool
+          uri: lb://walltool-service
+          predicates:
+            - Path=/v1/movement/tool/**
+            - Method=PATCH
+
+        - id: movement-all-get-methods
+          uri: lb://walltool-service
+          predicates:
+            - Path=/v1/movement/**
+            - Method=GET
