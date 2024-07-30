@@ -18,7 +18,7 @@ This project follows the API Gateway architecture and comprises multiple servers
 
 ## With Postman
 
-We have added a Postman file named 'LABOR-POSTMAN-RESTFUL.json' in the root of the project, containing all endpoints used in the application.
+We have added a Postman file in the root of the project, containing all endpoints used in the application.
 
 ## Network Components
 
